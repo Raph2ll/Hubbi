@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom"
+import Card from "../Components/StarshipsCard";
+import Nav from "../Components/Nav";
 
 function Starships() {
   const [starships, setStarships] = useState([]);
@@ -14,9 +15,13 @@ function Starships() {
 
   const getStarships = async (page) => {
     const response = await fetch(`https://swapi.dev/api/starships/?page=${page}`);
-    setPage(page)
-    const { results } = await response.json();
-    setStarships(results);
+    if (response.ok == false) {
+      console.log("Page not found")
+    } else {
+      setPage(page)
+      const { results } = await response.json();
+      setStarships(results);
+    }
   };
 
   function prevPage() {
@@ -28,28 +33,25 @@ function Starships() {
   };
 
   return (
-    <div>
-      {
-        starships.map((element) =>
-          <div
-            key={starships.indexOf(element)} >
-            <h1>{element.name}</h1>
-            <h1>{element.model}</h1>
-            <Link to={`/starships/${element.url.substring(element.url.indexOf("/", 29), element.url.length - 1).replace("/", "")}`}>
-              <button
-                type="button"
-              >Details
-              </button>
-            </Link>
-          </div>
-        )
-      }
-      <button onClick={prevPage}>
-        Anterior
-      </button>
-      <button onClick={nextPage}>
-        Próximo
-      </button>
+    <div className="flex flex-col min-h-screen">
+      <Nav />
+      <div className="flex justify-center flex-row flex-wrap">
+        {
+          starships.map((element) =>
+            <Card key={starships.indexOf(element)} data={element} />
+          )
+        }
+      </div>
+      <div className="inline-flex justify-center">
+        <button onClick={prevPage}
+          className="bg-blue-100 hover:bg-gray-400 text-white font-bold py-2 px-4 rounded-l">
+          Prev
+        </button>
+        <button onClick={nextPage}
+          className="bg-blue-100 hover:bg-gray-400 text-white font-bold  py-2 px-4 rounded-r">
+          Next
+        </button>
+      </div>
     </div >
   )
 }
