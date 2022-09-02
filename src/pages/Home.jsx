@@ -27,7 +27,7 @@ function Home() {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-800 md:text-2xl">
               Sign in to your account
             </h1>
-            <form className="space-y-4 md:space-y-6" action="dangerouslySetInnerHTML">
+            <form className="space-y-4 md:space-y-6" action="javascript:void(0);">
               <div>
                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-800 ">Your email</label>
                 <input
