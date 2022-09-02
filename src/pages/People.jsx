@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom"
+import Nav from "../Components/Nav";
+import Card from "../Components/PeopleCard";
 
 function People() {
   const [people, setPeople] = useState([]);
@@ -14,9 +15,13 @@ function People() {
 
   const getPeoples = async (page) => {
     const response = await fetch(`https://swapi.dev/api/people/?page=${page}`);
-    setPage(page)
-    const { results } = await response.json();
-    setPeople(results);
+    if (response.ok == false) {
+      console.log("Page not found")
+    } else {
+      setPage(page)
+      const { results } = await response.json();
+      setPeople(results);
+    }
   };
 
   function prevPage() {
@@ -27,14 +32,25 @@ function People() {
     getPeoples(page + 1);
   };
   return (
-    <div>
-      {(people.map((index) => <h1>{index.name}</h1>))}
-      <button onClick={prevPage}>
-        Anterior
-      </button>
-      <button onClick={nextPage}>
-        Próximo
-      </button>
+    <div className="flex flex-col min-h-screen">
+      <Nav />
+      <div className="flex justify-center flex-row flex-wrap">
+        {
+          people.map((element) =>
+            <Card key={people.indexOf(element)} data={element} />
+          )
+        }
+      </div>
+      <div className="inline-flex justify-center">
+        <button onClick={prevPage}
+          className="bg-blue-100 hover:bg-gray-400 text-white font-bold py-2 px-4 rounded-l">
+          Prev
+        </button>
+        <button onClick={nextPage}
+          className="bg-blue-100 hover:bg-gray-400 text-white font-bold  py-2 px-4 rounded-r">
+          Next
+        </button>
+      </div>
     </div >
   )
 }
