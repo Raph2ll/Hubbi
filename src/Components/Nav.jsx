@@ -7,8 +7,8 @@ function Nav() {
       <header className="flex items-center">
         <div className="hidden md:block">
           <div className="ml-10 mr-52 flex place-items-baseline space-x-4">
-            <Link to={"/"}>
-              <a href="google.com" className="text-sm text-gray-800 p-6">Home</a>
+            <Link to={"/"} >
+              <p className="text-sm text-gray-800 p-6">Home</p>
             </Link>
           </div>
         </div>
