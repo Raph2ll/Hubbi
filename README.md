@@ -2,8 +2,6 @@
 
 Esse projeto foi desenvolvido para uma vaga de frontend na empresa [Hubbi](https://www.hubbi.app)
 
-A proposta é 
-
 # Sumário
 
 - [Instruções](#instruções)
